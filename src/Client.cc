@@ -46,8 +46,14 @@ pplx::task<void> Client::connect(const teckos::string_t& apiToken,
         std::cerr << "WARNING: not an array: " << j.dump() << std::endl;
         return;
       }
-      const std::string& event = j[0];
-      const nlohmann::json payload = j[1];
+      std::string event;
+      nlohmann::json payload;
+      if(j.size() > 0) {
+        event = j[0];
+      }
+      if(j.size() > 1) {
+        payload = j[1];
+      }
 
 #ifdef DEBUG_EVENTS
 #ifdef DEBUG_PAYLOADS
